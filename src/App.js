@@ -1,23 +1,24 @@
-import logo from './logo.svg';
+
 import './App.css';
 
+import Snow from './snow-effect/snow/component';
+
 function App() {
+
+  // let [showChild, setSowChild] = useState(true)
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Snow quantity={100}/>
+{/*       
+      {showChild && <Flake 
+            size = {randInt(20, 40)}
+            color = {randColor()}
+            top = {0}                                                             
+            left = {randInt(0,100)}
+            whenDone = { () => {setSowChild(false)}}
+      />} */}
+
     </div>
   );
 }
