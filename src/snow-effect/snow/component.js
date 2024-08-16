@@ -3,47 +3,51 @@ import Flake from '../flake/component.js'
 import {randInt, randColor} from '../../helpers/generators';
 import { useEffect, useState } from 'react';
 
-const Snow = ({quantity}) => {
+const Snow = () => {
 
     let flakeCounter = 1
-    let flakesArray = []
 
-    for(let i = 0; i < quantity; i++) {
-        flakesArray.push(
-            <Flake
-                key={flakeCounter++}
-                size = {randInt(20, 40)}
-                color = {randColor()}
-                left = {randInt(0, 100)} 
-                top={randInt(-200, 0)}                                                            
-            />,
+    let [flakes, setFlakes] = useState([
+        <Flake
+            key={flakeCounter++}
+            size = {randInt(20, 40)}
+            color = {randColor()}
+            left = {randInt(0, 100)} 
+            top={randInt(-200, 0)}                                                            
+        />,
+    ])
 
-        )
-    }
-    let [flakes, setFlakes] = useState(flakesArray)
-    const TOP_LIMIT = 80
-
-    //HW: apply the limit to EACH flake
-    //Hw: refactor the initialization logic - 5 flakes with random left, color and diff keys
-    //HW: use destructuring + optimization to minimize the code inside the setter
-
+    const TOP_LIMIT = 95
+    const FLAKES_COUNT_LIMIT = 200
 
     useEffect(()=>{
         setTimeout(()=>{
             setFlakes(flakes => 
-                flakes
+                [...flakes,
+                    ...new Array(FLAKES_COUNT_LIMIT - flakes.length)
+                    .fill()
+                    .map(() => 
+                        <Flake
+                            key={flakeCounter++}
+                            size = {randInt(20, 40)}
+                            color = {randColor()}
+                            left = {randInt(0, 100)} 
+                            top={randInt(-300, 0)}                                                            
+                        />,
+                    )                       
+                ]
                     .filter(({ props: { top } }) => top < TOP_LIMIT)
                     .map(({ props: { size, color, top, left } }) => (
                         <Flake
                             key={flakeCounter++}
                             size={size}
                             color={color}
-                            top={top + 5}
+                            top={top + 0.1}
                             left={left}
                         />
                     ))
             )  
-        }, 500)
+        }, 20)
     })
 
     return (

@@ -9,16 +9,7 @@ function App() {
 
   return (
     <div className="App">
-      <Snow quantity={100}/>
-{/*       
-      {showChild && <Flake 
-            size = {randInt(20, 40)}
-            color = {randColor()}
-            top = {0}                                                             
-            left = {randInt(0,100)}
-            whenDone = { () => {setSowChild(false)}}
-      />} */}
-
+      <Snow />
     </div>
   );
 }
